@@ -23,3 +23,7 @@
 # What are Resolvers?
 
 -   Resolvers are functions that determine how to fetch the data associated with each field in the schema.
+
+# @Passport.Js =>
+
+- Authentication middleware for Node.js
