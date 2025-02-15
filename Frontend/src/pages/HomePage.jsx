@@ -6,6 +6,11 @@ import TransactionForm from "../components/TransactionForm";
 
 import { MdLogout } from "react-icons/md";
 
+import toast from "react-hot-toast";
+import { useMutation, useQuery } from "@apollo/client";
+
+import { LOGOUT } from "../graphql/mutations/user.mutation";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const HomePage = () => {
@@ -25,11 +30,21 @@ const HomePage = () => {
 		],
 	};
 
-	const handleLogout = () => {
-		console.log("Logging out...");
+
+	const [logout, { loading, client }] = useMutation(LOGOUT, {
+		refetchQueries: ["GetAuthenticatedUser"],
+	});
+
+	const handleLogout = async () => {
+		try {
+			await logout()
+
+		} catch (error) {
+			console.error("Error logging out:", error);
+			toast.error(error.message);
+		}
 	};
 
-	const loading = false;
 
 	return (
 		<>
